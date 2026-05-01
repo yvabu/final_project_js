@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech World | Shop</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="index.html" class="navbar-logo">
+            Tech<span class="logo-dot"></span><span class="accent">STORE</span>
+        </a>
+        <div class="navbar-links">
+            <a href="index.html">Home</a>
+            <a href="shop.html" class="active">Shop</a>
+            <a href="product-details.html">Products</a>
+            <a href="cart.html">Cart</a>
+        </div>
+        <div class="navbar-search">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="search-input" placeholder="მოძებნეთ მოწყობილობები...">
+        </div>
+        <div class="navbar-actions">
+            <a href="auth.html" class="btn-ghost btn-sm" id="auth-btn">Login</a>
+            <a href="cart.html" class="cart-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+                <span id="cart-count">0</span>
+            </a>
+        </div>
+    </nav>
+
+    <main class="shop-layout">
+        <aside class="sidebar">
+            <div class="sidebar-section">
+                <h3 class="sidebar-title">კატეგორიები</h3>
+                <div class="filter-btn-group">
+                    <button class="filter-btn active" data-category="all">ყველა პროდუქცია</button>
+                    <button class="filter-btn" data-category="phones">სმარტფონები</button>
+                    <button class="filter-btn" data-category="laptops">ლეპტოპები</button>
+                    <button class="filter-btn" data-category="accessories">აქსესუარები</button>
+                    <button class="filter-btn" data-category="audio">აუდიო</button>
+
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <h3 class="sidebar-title">ფასის დიაპაზონი</h3>
+                <div class="price-range-labels">
+                    <span>$0</span>
+                    <span id="price-limit">$5000</span>
+                </div>
+                <input type="range" class="price-slider" min="0" max="5000" step="100" id="price-filter">
+            </div>
+        </aside>
+
+        <section class="shop-main">
+            <div class="shop-topbar">
+                <h1>აღმოაჩინეთ ტექნოლოგიები</h1>
+                <div class="shop-topbar-right">
+                    <select class="sort-select" id="sort-products">
+                        <option value="default">დალაგება: გამორჩეული</option>
+                        <option value="low">ფასი: დაბალიდან მაღალამდე</option>
+                        <option value="high">ფასი: მაღალიდან დაბალამდე</option>
+                    </select>
+                </div>
+            </div>
+
+            <div id="product-grid">
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

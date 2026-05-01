@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech World | My Cart</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="index.html" class="navbar-logo">
+            TECH<span class="logo-dot"></span><span class="accent">STORE</span>
+        </a>
+        <div class="navbar-links">
+            <a href="index.html">Home</a>
+            <a href="shop.html">Shop</a>
+            <a href="product-details.html">products</a>
+            <a href="cart.html" class="active">Cart</a>
+
+        </div>
+        <div class="navbar-actions">
+            <a href="auth.html" class="btn-ghost btn-sm">Login</a>
+            <a href="cart.html" class="cart-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+                <span id="cart-count">0</span>
+            </a>
+        </div>
+    </nav>
+
+    <main class="cart-layout">
+        <div class="cart-left">
+            <div class="cart-header">
+                <h1>კალათა</h1>
+                <span class="item-count" id="cart-total-items">0 ნივთი</span>
+            </div>
+
+            <div class="cart-table">
+                <div class="cart-table-header">
+                    <span>პროდუქტი</span>
+                    <span>ფასი</span>
+                    <span>რაოდენობა</span>
+                    <span>ჯამი</span>
+                    <span></span>
+                </div>
+
+                <div id="cart-items">
+                    </div>
+            </div>
+        </div>
+
+        <aside class="order-summary">
+            <h2>შეკბეთის შეჯამება</h2>
+            <div class="summary-line">
+                <span class="label">შუალედური ჯამი</span>
+                <span class="value" id="subtotal-price">$0.00</span>
+            </div>
+            <div class="summary-line">
+                <span class="label">მიწოდება</span>
+                <span class="value">უფასო</span>
+            </div>
+            <div class="coupon-input">
+                <input type="text" placeholder="Promo Code">
+                <button class="btn btn-ghost btn-sm">მიმართვა</button>
+            </div>
+            <div class="summary-total">
+                <span class="label">ჯამი</span>
+                <span id="total-price">$0.00</span>
+            </div>
+            <button class="btn btn-primary btn-full btn-lg" style="margin-top: 24px;" id="checkout-btn">
+                გადახდაზე გადასვლა
+            </button>
+        </aside>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

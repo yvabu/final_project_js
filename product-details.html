@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech World | პროდუქტის დეტალები</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="index.html" class="navbar-logo">
+            TECH<span class="logo-dot"></span><span class="accent">STORE</span>
+        </a>
+        <div class="navbar-links">
+            <a href="index.html">Home</a>
+            <a href="shop.html">Shop</a>
+            <a href="product-details.html">Products</a>
+            <a href="cart.html">Cart</a>
+        </div>
+        <div class="navbar-actions">
+            <a href="auth.html" class="btn-ghost btn-sm">Login</a>
+            <a href="cart.html" class="cart-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+                <span id="cart-count">0</span>
+            </a>
+        </div>
+    </nav>
+
+    <main class="product-details-layout">
+        <div class="product-image-gallery">
+            <div class="product-main-image" id="detail-image-container" onclick="back_to_min()">
+              <img src="PastedImage.png" id="detail-main-img" alt="პროდუქტის სურათი">
+            </div>
+            <div class="product-thumbnails">
+              <div class="product-thumb active" onclick="image1_transform_to_main('img1')">
+                <img src="PastedImage.png" alt="thumb" id="img1">
+              </div>
+              <div class="product-thumb" onclick="image2_transform_to_main('img2')">
+                 <img src="PastedImage.png" alt="thumb" id="img2">
+              </div>
+              <div class="product-thumb" onclick="image3_transform_to_main('img3')">
+                <img src="PastedImage.png" alt="thumb" id="img3">
+              </div>
+           </div>
+        </div>
+        <div class="product-info">
+            <h1 id="detail-name">პრემიუმ ხარისხის ტექნოლოგიური მოწყობილობები</h1>
+            <div class="product-info-rating">
+                <div class="stars">★★★★★</div>
+                <span class="rating-count">(48 მომხმარებლის ნახვა)</span>
+            </div>
+            <div class="product-info-price">
+                <span class="price-big" id="detail-price">$0.00</span>
+                <span class="price-save">მარაგში</span>
+            </div>
+
+            <div class="product-divider"></div>
+
+            <p class="product-description" id="detail-description">
+                განიცადეთ ახალი დონის შესრულება ჩვენი უახლესი ფლაგმანური მოდელით. შექმნილია სიჩქარის, ეფექტურობისა და განსაცვიფრებელი ვიზუალისთვის. ეს მოწყობილობა თანამედროვე ინჟინერიის მწვერვალს წარმოადგენს.
+            </p>
+
+            <div class="product-specs">
+                <div class="spec-item">
+                    <p class="spec-label">გარანტია</p>
+                    <p class="spec-value">2 წლიანი ოფიციალური</p>
+                </div>
+                <div class="spec-item">
+                    <p class="spec-label">მიწოდება</p>
+                    <p class="spec-value">უფასო მიწოდება</p>
+                </div>
+            </div>
+
+            <div class="product-cta">
+                <div class="quantity-selector">
+                    <button class="qty-btn" id="qty-minus">-</button>
+                    <div class="qty-display" id="product-qty">1</div>
+                    <button class="qty-btn" id="qty-plus">+</button>
+                </div>
+                <button class="btn btn-primary btn-lg" id="add-to-cart-detail">კალათაში დამატება</button>
+            </div>
+
+            <div class="stock-indicator">
+                <span class="stock-dot"></span>
+                <span>სწრაფი მიწოდება თქვენს რეგიონში</span>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

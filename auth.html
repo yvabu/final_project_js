@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech World | Auth</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .auth-container {
+            max-width: 400px;
+            margin: 80px auto;
+            background: var(--bg-card);
+            padding: 40px;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border);
+        }
+        .auth-form { display: flex; flex-direction: column; gap: 20px; }
+        .auth-form input {
+            padding: 12px;
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            color: var(--text-primary);
+        }
+        .auth-toggle {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: var(--text-secondary);
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="index.html" class="navbar-logo">TECH<span class="accent">STORE</span></a>
+    </nav>
+
+    <div class="auth-container">
+        <div id="login-section">
+            <h2 style="margin-bottom: 20px;">კეთილი იყოს შენი დაბრუნება</h2>
+            <form class="auth-form" id="login-form">
+                <input type="email" id="login-email" placeholder="ელექტრონული ფოსტა" required>
+                <input type="password" id="login-password" placeholder="პაროლი" required>
+                <button type="submit" class="btn btn-primary btn-full">Login</button>
+            </form>
+            <p class="auth-toggle" onclick="toggleAuth()">არ გაქვს ანგარიში? რეგისტრაცია</p>
+        </div>
+
+        <div id="register-section" style="display: none;">
+            <h2 style="margin-bottom: 20px;">Create Account</h2>
+            <form class="auth-form" id="register-form">
+                <input type="text" id="reg-name" placeholder="სახელი" required>
+                <input type="email" id="reg-email" placeholder="ელექტრონული ფოსტა" required>
+                <input type="password" id="reg-password" placeholder="პაროლი" required>
+                <button type="submit" class="btn btn-primary btn-full">შესვლა</button>
+            </form>
+            <p class="auth-toggle" onclick="toggleAuth()">უკვე გაქვთ ანგარიში? ავტორიზაცია</p>
+        </div>
+    </div>
+
+    <script>
+        function toggleAuth() {
+            const login = document.getElementById('login-section');
+            const reg = document.getElementById('register-section');
+            if(login.style.display === 'none') {
+                login.style.display = 'block';
+                reg.style.display = 'none';
+            } else {
+                login.style.display = 'none';
+                reg.style.display = 'block';
+            }
+        }
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>
