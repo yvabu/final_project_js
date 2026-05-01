@@ -80,7 +80,6 @@ function filterProducts(){
     }
     else{
         filtered=products.filter(products => products.category===selectedCategory)
-
     }
     infosGamotana(filtered)
 }
