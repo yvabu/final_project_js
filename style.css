@@ -1584,36 +1584,213 @@ footer {
     padding: 20px;
   }
 }
-
-@media (max-width: 768px) {
-  .navbar {
-    padding: 0 20px;
-    gap: 12px;
-  }
-  .navbar-links { display: none; }
-  .navbar-search { max-width: 200px; }
-
-  .hero { padding: 60px 24px; }
-  .section { padding: 56px 24px; }
-  .shop-main { padding: 24px 20px; }
-  .product-details-layout { padding: 32px 20px; }
-  .cart-layout { padding: 24px 20px; }
-
-  #product-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
-  #cart-modal { width: 100%; }
-  .footer-grid { grid-template-columns: 1fr; gap: 32px; }
-  footer { padding: 48px 24px 24px; }
-  .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
-  .stats-bar { grid-template-columns: repeat(2, 1fr); margin: 0 24px; }
+.menu-burger{
+  display: none;
 }
 
+/* ════════════════════════════════════════════════════════════
+   COMPLETE RESPONSIVE SYSTEM (Desktop, Tablet, Mobile)
+   ════════════════════════════════════════════════════════════ */
+
+/* 1. ტაბლეტებისთვის (1024px-მდე) */
+@media (max-width: 1024px) {
+  .section { padding: 60px 24px; }
+
+  .hero {
+    flex-direction: column;
+    text-align: center;
+    padding: 80px 24px;
+    min-height: auto;
+  }
+
+  .hero-content { max-width: 100%; margin-bottom: 40px; }
+  .hero h1 { font-size: 52px; }
+  .hero-cta { justify-content: center; }
+
+  .hero-visual {
+    position: relative;
+    right: auto;
+    top: auto;
+    transform: none;
+    margin: 40px auto 0;
+    width: 350px;
+    height: 350px;
+  }
+
+  .stats-bar {
+    grid-template-columns: repeat(2, 1fr);
+    margin: 0 24px;
+  }
+}
+
+/* 2. მობილური ტელეფონებისთვის (768px-მდე) */
+@media (max-width: 768px) {
+
+
+  /* --- NAVBAR (Logo - Search - Cart - Burger) --- */
+
+
+  .navbar {
+    padding: 0 12px;
+    gap: 8px;
+    height: 60px;
+    justify-content: space-between;
+  }
+
+  .navbar-logo {
+    display: flex; /* ლოგო ჩანს */
+    font-size: 15px;
+    order: 1; /* პირველი */
+    flex-shrink: 0;
+  }
+  .navbar-logo .logo-dot { width: 6px; height: 6px; }
+
+  .navbar-search {
+    display: flex; /* სეარჩი ჩანს */
+    order: 2; /* მეორე (შუაში) */
+    max-width: 110px; /* ზომაში დაპატარავებული */
+    margin: 0;
+  }
+
+  .navbar-search input#search-input {
+    height: 32px;
+    padding: 0 8px 0 28px;
+    font-size: 10px;
+  }
+
+  .navbar-search .search-icon { left: 8px; width: 12px; }
+
+  .navbar-actions {
+    order: 3; /* მესამე */
+    display: flex;
+    gap: 0;
+  }
+
+  .cart-btn {
+    padding: 0;
+    width: 38px;
+    height: 38px;
+    background: transparent;
+    border: none;
+    font-size: 0; /* ტექსტი "Cart" ქრება */
+    justify-content: center;
+    position: relative;
+  }
+
+  .cart-btn svg { width: 22px; height: 22px; margin: 0; }
+
+  #cart-count {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 16px;
+    height: 16px;
+    font-size: 9px;
+  }
+
+  .menu-burger {
+    display: block; /* ბურგერი ჩანს */
+    order: 4; /* მეოთხე (ბოლოში) */
+    font-size: 26px;
+    color: var(--accent);
+    cursor: pointer;
+    margin-left: 5px;
+  }
+
+  /* --- მობილური მენიუს გამოსვლა --- */
+  .navbar-links{
+    position: fixed;
+    top: 60px;
+    width: 100%;
+    height: 100vh; /* მთლიანი ეკრანის სიმაღლე */
+    background: var(--bg-primary); /* შენი მუქი ფერი */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-top: 30px;
+    gap: 50px;
+    z-index: 9998;
+    transition: 0.5s ease-in-out; /* რბილი გამოსვლა */
+    overflow-y: auto;
+
+
+
+  /* ვიზუალი */
+  z-index: 9999;
+  border-top: 1px solid var(--border);
+  transition: var(--transition-slow); /* რბილი გამოსვლა */
+  box-shadow: 10px 0 30px rgba(0, 0, 0, 0.5);
+}
+
+/* როცა მენიუ აქტიურია */
+.navbar-links.active {
+  left: 0; /* გამოდის ეკრანზე */
+}
+
+/* მენიუს ლინკების სტილი შიგნით */
+.navbar-links li {
+  list-style: none;
+  width: 100%;
+  text-align: center;
+}
+
+.navbar-links a {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text-primary);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  transition: var(--transition);
+}
+
+.navbar-links a:hover {
+  color: var(--accent);
+  text-shadow: var(--accent-glow);
+}
+
+
+
+  /* --- შინაარსის Grid-ები --- */
+  #product-grid {
+    grid-template-columns: repeat(2, 1fr) !important; /* პროდუქტები 2 სვეტად */
+    gap: 12px;
+  }
+
+  .categories-grid { grid-template-columns: 1fr; } /* კატეგორიები 1 სვეტად */
+
+  /* --- დეტალების გვერდი --- */
+  .product-details-layout {
+    grid-template-columns: 1fr;
+    padding: 24px 16px;
+    gap: 32px;
+  }
+
+  .price-big { font-size: 32px; }
+
+  /* --- კალათის გვერდი --- */
+  .cart-layout {
+    grid-template-columns: 1fr;
+    padding: 16px;
+  }
+
+  /* --- Footer --- */
+  .footer-grid {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: 32px;
+  }
+}
+
+/* 3. ძალიან პატარა ტელეფონებისთვის (480px-მდე) */
 @media (max-width: 480px) {
   .hero h1 { font-size: 36px; }
-  .hero-cta { flex-direction: column; }
-  .hero-cta .btn { width: 100%; justify-content: center; }
-  #product-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
-  .categories-grid { grid-template-columns: 1fr; }
-  .product-cta { flex-direction: column; }
-  .product-cta .btn { width: 100%; justify-content: center; }
-  .stats-bar { grid-template-columns: 1fr 1fr; }
+  .stats-bar { grid-template-columns: 1fr; }
+
+  #product-grid {
+    grid-template-columns: 1fr !important; /* ძალიან პატარა ეკრანზე პროდუქტიც 1-ია */
+  }
+
+  .navbar-search { max-width: 90px; } /* კიდევ უფრო პატარა საძიებო ველი */
 }

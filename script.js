@@ -184,3 +184,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
     loadProductDetails();
 });
+function burger_menu(){
+    const body = document.body;
+    const burgerBtn = document.getElementById('burger-menu');
+    navigacia=document.getElementById('nav-links')
+    if (navigacia.style.display=='block'){
+        navigacia.style.display='none'
+    }
+    else{
+        navigacia.style.display='block'
+    }
+    navigacia.classList.toggle('active');
+
+    if (navigacia.classList.contains('active')) {
+    // როცა მენიუ იხსნება
+    body.style.overflow = 'hidden'; // საიტის სქროლვა ითიშება
+    burgerBtn.innerText = '✕';       // ბურგერი ხდება X
+    burgerBtn.style.color = 'var(--accent)';
+  } else {
+    // როცა მენიუ იხურება
+    body.style.overflow = 'auto';   // საიტის სქროლვა ბრუნდება
+    burgerBtn.innerText = '☰';       // ბურგერი ბრუნდება
+    burgerBtn.style.color = '';
+  }
+}
