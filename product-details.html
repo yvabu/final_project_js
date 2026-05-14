@@ -15,11 +15,10 @@
         <ul class="navbar-links" id="nav-links">
             <li><a href="index.html">Home</a></li>
             <li><a href="shop.html">Shop</a></li>
-            <li><a href="product-details.html" class="active">Products</a></li>
             <li><a href="cart.html">Cart</a></li>
+            <li><a href="about_us.html">About Us</a></li>
         </ul>
         <div class="navbar-actions">
-            <a href="auth.html" class="btn-ghost btn-sm">Login</a>
             <a href="cart.html" class="cart-btn">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
                 <span id="cart-count">0</span>
@@ -34,7 +33,7 @@
               <img src="PastedImage.png" id="detail-main-img" alt="პროდუქტის სურათი">
             </div>
             <div class="product-thumbnails">
-              <div class="product-thumb active" onclick="image1_transform_to_main('img1')">
+              <div class="product-thumb active"  onclick="image1_transform_to_main('img1')">
                 <img src="PastedImage.png" alt="thumb" id="img1">
               </div>
               <div class="product-thumb" onclick="image2_transform_to_main('img2')">
@@ -47,10 +46,6 @@
         </div>
         <div class="product-info">
             <h1 id="detail-name">პრემიუმ ხარისხის ტექნოლოგიური მოწყობილობები</h1>
-            <div class="product-info-rating">
-                <div class="stars">★★★★★</div>
-                <span class="rating-count">(48 მომხმარებლის ნახვა)</span>
-            </div>
             <div class="product-info-price">
                 <span class="price-big" id="detail-price">$0.00</span>
                 <span class="price-save">მარაგში</span>
@@ -65,11 +60,11 @@
             <div class="product-specs">
                 <div class="spec-item">
                     <p class="spec-label">გარანტია</p>
-                    <p class="spec-value">2 წლიანი ოფიციალური</p>
+                    <p class="spec-value" id="garanty">2 წლიანი ოფიციალური</p>
                 </div>
-                <div class="spec-item">
+                <div class="spec-item" onclick="fasebis_chveneba()" style="cursor: pointer">
                     <p class="spec-label">მიწოდება</p>
-                    <p class="spec-value">უფასო მიწოდება</p>
+                    <p class="spec-value">დააჭირეთ ფასების სანახავად</p>
                 </div>
             </div>
 
@@ -88,7 +83,21 @@
             </div>
         </div>
     </main>
-
+    <div id="delivery-modal" class="custom-modal">
+      <div class="modal-content">
+        <span class="close-modal" onclick="closeDeliveryModal()">&times;</span>
+        <h2><span class="accent">📍</span> მიწოდების ტარიფები</h2>
+        <div class="modal-body">
+            <div class="price-row"><span>თბილისი</span> <span>10 ₾</span></div>
+            <div class="price-row"><span>რუსთავი</span> <span>15 ₾</span></div>
+            <div class="price-row"><span>ქუთაისი</span> <span>20 ₾</span></div>
+            <div class="price-row"><span>ზუგდიდი</span> <span>25 ₾</span></div>
+            <div class="price-row"><span>ბათუმი</span> <span>30 ₾</span></div>
+            <div class="price-row"><span>სხვა ქალაქები</span> <span>35 ₾</span></div>
+        </div>
+        <p class="modal-footer">🚚 მიწოდება ხორციელდება 2-3 სამუშაო დღეში.</p>
+      </div>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>

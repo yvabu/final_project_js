@@ -15,8 +15,9 @@
         <ul class="navbar-links" id="nav-links">
             <li><a href="index.html">Home</a></li>
             <li><a href="shop.html" class="active">Shop</a></li>
-            <li><a href="product-details.html">Products</a></li>
             <li><a href="cart.html">Cart</a></li>
+            <li><a href="about_us.html">About US</a></li>
+
         </ul>
 
        <div class="navbar-search">
@@ -26,11 +27,14 @@
            <input type="text" id="search-input" placeholder="Search products…" />
        </div>
         <div class="navbar-actions">
-            <a href="auth.html" class="btn-ghost btn-sm" id="auth-btn">Login</a>
             <a href="cart.html" class="cart-btn">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
-                <span id="cart-count">0</span>
-            </a>
+             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+               <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/>
+               <path d="M16 10a4 4 0 0 1-8 0"/>
+             </svg>
+               Cart
+            <span id="cart-count">0</span>
+           </a>
         </div>
          <label class="menu-burger"  id="burger-menu" onclick="burger_menu()">☰</label>
     </nav>

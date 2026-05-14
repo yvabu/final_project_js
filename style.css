@@ -1588,6 +1588,166 @@ footer {
   display: none;
 }
 
+/*ფასების ჩვენების ფანჯრის სტილი*/
+.custom-modal {
+    display: none;
+    position: fixed;
+    left: 0;
+    top:0;
+    z-index: 10000;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(8px); /* ფონის დაბლარვა */
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background: var(--bg-card);
+    border: 1px solid var(--border-accent);
+
+    padding: 30px;
+    width: 90%;
+    max-width: 400px;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--accent-glow);
+    position: relative;
+    color: var(--text-primary);
+    animation: modalFadeIn 0.3s ease-out;
+}
+
+@keyframes modalFadeIn {
+    from { transform: translateY(-20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.close-modal {
+    position: absolute;
+    right: 20px; top: 15px;
+    color: var(--text-muted);
+    font-size: 28px;
+    cursor: pointer;
+}
+
+.close-modal:hover { color: var(--accent); }
+
+.modal-content h2 { margin-bottom: 20px; font-size: 22px; text-align: center; }
+
+.price-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+}
+
+.price-row span:last-child { color: var(--accent); font-weight: bold; }
+
+.modal-footer {
+    margin-top: 20px;
+    font-size: 13px;
+    color: var(--text-secondary);
+    text-align: center;
+}
+/* About Page Specific Styles */
+.about-container {
+    padding-top: 100px;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding-bottom: 50px;
+}
+.about-hero-image{
+   width: 100%; /* კონტეინერის 100% და არა ეკრანის */
+    max-width: 100%;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: center; /* ფოტო რომ ცენტრში იყოს */
+}
+.about-hero-image img {
+    width: 100%; /* შეივსოს კონტეინერის სიგანე */
+    height: auto;
+    max-height: 450px; /* რომ ძალიან არ გაგრძელდეს სიმაღლეში */
+    object-fit: cover;
+
+}
+.about-hero {
+    text-align: center;
+    padding: 60px 20px;
+    background: linear-gradient(to bottom, rgba(0, 229, 255, 0.05), transparent);
+    border-radius: var(--radius-lg);
+    margin-bottom: 40px;
+}
+
+.about-hero h1 {
+    font-size: 3rem;
+    color: var(--text-primary);
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.about-hero p {
+    color: var(--accent);
+    font-size: 1.2rem;
+    opacity: 0.8;
+}
+
+/* Stats Cards */
+.about-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+    margin-bottom: 60px;
+    padding: 0 20px;
+}
+
+.stat-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    padding: 40px 20px;
+    border-radius: var(--radius-lg);
+    text-align: center;
+    transition: 0.3s ease;
+}
+
+.stat-card:hover {
+    border-color: var(--accent);
+    box-shadow: var(--accent-glow);
+    transform: translateY(-5px);
+}
+
+.stat-card h3 {
+    font-size: 2.5rem;
+    color: var(--accent);
+    margin-bottom: 10px;
+}
+
+.stat-card p {
+    color: var(--text-secondary);
+    font-size: 1rem;
+}
+
+/* Mission Section */
+.about-mission {
+    background: var(--bg-elevated);
+    padding: 50px;
+    border-radius: var(--radius-lg);
+    border-left: 5px solid var(--accent);
+    margin: 0 20px;
+}
+
+.about-mission h2 {
+    color: var(--text-primary);
+    margin-bottom: 20px;
+}
+
+.about-mission p {
+    color: var(--text-secondary);
+    line-height: 1.8;
+    font-size: 1.1rem;
+}
+
 /* ════════════════════════════════════════════════════════════
    COMPLETE RESPONSIVE SYSTEM (Desktop, Tablet, Mobile)
    ════════════════════════════════════════════════════════════ */
@@ -1621,6 +1781,23 @@ footer {
     grid-template-columns: repeat(2, 1fr);
     margin: 0 24px;
   }
+  .about-container {
+        max-width: 900px;
+        padding-top: 90px;
+    }
+
+    .about-hero-wrapper {
+        gap: 25px; /* დავაკლოთ დაშორება ტექსტსა და ფოტოს შორის */
+    }
+
+    .about-hero-content h1 {
+        font-size: 2.2rem;
+    }
+
+    .about-stats {
+        grid-template-columns: repeat(3, 1fr); /* ისევ 3 სვეტი დარჩეს, მაგრამ უფრო ვიწრო */
+        gap: 15px;
+    }
 }
 
 /* 2. მობილური ტელეფონებისთვის (768px-მდე) */
@@ -1701,26 +1878,23 @@ footer {
   .navbar-links{
     position: fixed;
     top: 60px;
-    width: 100%;
-    height: 100vh; /* მთლიანი ეკრანის სიმაღლე */
+    left: -100%;
+    width: 100vw;
+    height: calc(100vh - 60px);
     background: var(--bg-primary); /* შენი მუქი ფერი */
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    padding-top: 30px;
-    gap: 50px;
-    z-index: 9998;
-    transition: 0.5s ease-in-out; /* რბილი გამოსვლა */
-    overflow-y: auto;
-
-
-
-  /* ვიზუალი */
-  z-index: 9999;
-  border-top: 1px solid var(--border);
-  transition: var(--transition-slow); /* რბილი გამოსვლა */
-  box-shadow: 10px 0 30px rgba(0, 0, 0, 0.5);
+    justify-content: space-evenly;
+    z-index: 99999;
+    transition: var(--transition-slow); /* რბილი გამოსვლა */
+    padding: 0;
+    margin: 0;
+    padding-top: 40px;
+    border-top: 1px solid var(--border);
+    box-shadow: 10px 0 30px rgba(0, 0, 0, 0.5);
+    list-style: none;
+    padding-left: 0;
 }
 
 /* როცა მენიუ აქტიურია */
@@ -1732,12 +1906,16 @@ footer {
 .navbar-links li {
   list-style: none;
   width: 100%;
+  padding-top: 50px;
+  display: flex;
+  justify-content: space-evenly;
   text-align: center;
+
 }
 
 .navbar-links a {
   font-family: var(--font-display);
-  font-size: 24px;
+  font-size: 28px;
   font-weight: 700;
   color: var(--text-primary);
   text-transform: uppercase;
@@ -1781,6 +1959,63 @@ footer {
     text-align: center;
     gap: 32px;
   }
+/* --- About Us Page Responsive --- */
+
+/* 1. Hero სექციის მოწყობა - ტექსტი და ფოტო დალაგდეს ერთმანეთის ქვეშ */
+.about-hero-wrapper {
+    flex-direction: column; /* გვერდიგვერდ მაგივრად - ვერტიკალურად */
+    text-align: center;
+    padding: 40px 15px;
+    gap: 30px;
+}
+
+/* 2. ტექსტის ზომების შემცირება მობილურისთვის */
+.about-hero-content h1 {
+    font-size: 1.8rem; /* უფრო პატარა სათაური */
+    margin-bottom: 15px;
+}
+
+.about-hero-content p {
+    font-size: 1.1rem;
+}
+
+/* 3. მინი-მისიის ბლოკი მობილურზე (ხაზი მარცხნივ აღარ გვინდა) */
+.about-mission-mini {
+    border-left: none;
+    border-top: 2px solid var(--accent); /* ხაზი ზემოდან გადავიტანოთ */
+    padding: 15px 0 0 0;
+    font-size: 0.95rem;
+}
+
+/* 4. ფოტოს ზომის კონტროლი */
+.about-hero-image {
+    width: 100%;
+}
+
+.about-hero-image img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* 5. სტატისტიკის ბარათები - 1 სვეტად დალაგება */
+.about-stats {
+    grid-template-columns: 1fr; /* თითო ხაზზე თითო ქარდი */
+    gap: 15px;
+    padding: 0 15px;
+}
+
+.stat-card {
+    padding: 25px 15px;
+}
+
+.stat-card h3 {
+    font-size: 2rem;
+}
+
+/* 6. კონტეინერის დაშორება ზემოდან */
+.about-container {
+    padding-top: 80px; /* ნავბარს რომ არ შეეჯახოს */
+}
 }
 
 /* 3. ძალიან პატარა ტელეფონებისთვის (480px-მდე) */
@@ -1792,5 +2027,45 @@ footer {
     grid-template-columns: 1fr !important; /* ძალიან პატარა ეკრანზე პროდუქტიც 1-ია */
   }
 
-  .navbar-search { max-width: 90px; } /* კიდევ უფრო პატარა საძიებო ველი */
+  .navbar-search { max-width: 90px; }
+  /* კიდევ უფრო პატარა საძიებო ველი */
+  .about-container {
+        padding-top: 70px;
+    }
+
+    .about-hero-wrapper {
+        padding: 30px 10px;
+        border-radius: 0; /* ტელეფონზე კიდეებამდე მივიდეს */
+    }
+
+    .about-hero-content h1 {
+        font-size: 1.6rem; /* კიდევ უფრო პატარა სათაური */
+        letter-spacing: 1px;
+    }
+
+    .about-hero-content p {
+        font-size: 1rem;
+    }
+
+    .about-mission-mini {
+        font-size: 0.85rem;
+        padding-top: 15px;
+    }
+
+    .about-stats {
+        grid-template-columns: 1fr; /* 1 სვეტად დალაგება */
+    }
+
+    .stat-card {
+        padding: 20px 10px;
+    }
+
+    .stat-card h3 {
+        font-size: 1.8rem;
+    }
+
+    .about-hero-image img {
+        box-shadow: none; /* პატარა ეკრანზე ზედმეტი ნათება რომ არ "ჭრიდეს" თვალს */
+        border-radius: var(--radius-md);
+    }
 }

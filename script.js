@@ -8,7 +8,8 @@ const products=[
         image1:'image1.avif',
         image2:'image2-removebg-preview.png',
         image3:'image3-removebg-preview.png',
-        descr:"მაგარი ლეპტოპია"
+        descr:"მაგარი ლეპტოპია",
+        garantia:'5 წლიანი ოფიციალური'
     },
     {
         id:2,
@@ -19,7 +20,9 @@ const products=[
         image1:'headpone1-removebg-preview.png',
         image2:'headponeimage2-removebg-preview.png',
         image3:'headponeimage3-removebg-preview.png',
-        descr:"მაგარი ყურსასმენია"
+        descr:"მაგარი ყურსასმენია",
+        garantia:'3 წლიანი ოფიციალური'
+
     },
     {
         id:3,
@@ -30,7 +33,9 @@ const products=[
         image1:'phoneimage1-removebg-preview.png',
         image2:'phoneimage2-removebg-preview.png',
         image3:'phoneimages3-removebg-preview.png',
-        descr:"მაგარი აიფონია"
+        descr:"მაგარი აიფონია",
+        garantia:'1 წლიანი ოფიციალური'
+
     },
     {
         id:4,
@@ -41,7 +46,9 @@ const products=[
         image1:'monitorimage1-removebg-preview.png',
         image2:'monitorimage2-removebg-preview.png',
         image3:'monitorimage3-removebg-preview.png',
-        descr:"მაგარი მონიტორია"
+        descr:"მაგარი მონიტორია",
+        garantia:'2,5 წლიანი ოფიციალური'
+
     }
 ]
 let currentProduct = null;
@@ -52,14 +59,22 @@ function back_to_min(){
 function image1_transform_to_main(imgid1){
     const imgSrc=document.getElementById(imgid1).src
     document.getElementById('detail-main-img').src=imgSrc
+    document.getElementsByClassName('product-thumb')[0].classList.add('active')
+    document.getElementsByClassName('product-thumb')[1].classList.remove('active')
 }
 function image2_transform_to_main(imgid2){
     const imgSrc=document.getElementById(imgid2).src
     document.getElementById('detail-main-img').src=imgSrc
+    document.getElementsByClassName('product-thumb')[0].classList.remove('active')
+    document.getElementsByClassName('product-thumb')[2].classList.remove('active')
+    document.getElementsByClassName('product-thumb')[1].classList.add('active')
 }
 function image3_transform_to_main(imgid3){
     const imgSrc=document.getElementById(imgid3).src
     document.getElementById('detail-main-img').src=imgSrc
+    document.getElementsByClassName('product-thumb')[0].classList.remove('active')
+    document.getElementsByClassName('product-thumb')[1].classList.remove('active')
+    document.getElementsByClassName('product-thumb')[2].classList.add('active')
 }
 
 const filterButtons=document.querySelectorAll('.filter-btn')
@@ -130,6 +145,7 @@ function loadProductDetails(){
           const timage1=document.getElementById('img1')
           const timage2=document.getElementById('img2')
           const timage3=document.getElementById('img3')
+          const garant=document.getElementById('garanty')
           currentProduct=product
           if (tname){
               tname.innerText=product.name
@@ -151,6 +167,9 @@ function loadProductDetails(){
           }
           if (timage3){
               timage3.src=`${product.image3}`
+          }
+          if (garant){
+              garant.innerText=product.garantia
           }
 
         }
@@ -207,4 +226,33 @@ function burger_menu(){
     burgerBtn.innerText = '☰';       // ბურგერი ბრუნდება
     burgerBtn.style.color = '';
   }
+}
+function toggleAuth() {
+            const login = document.getElementById('login-section');
+            const reg = document.getElementById('register-section');
+            if(login.style.display === 'none') {
+                login.style.display = 'block';
+                reg.style.display = 'none';
+            } else {
+                login.style.display = 'none';
+                reg.style.display = 'block';
+            }
+}
+function fasebis_chveneba(){
+  document.getElementById('delivery-modal').style.display='flex'
+  document.body.overflow='hidden'
+}
+function closeDeliveryModal(){
+    document.getElementById('delivery-modal').style.display='none'
+}
+const card=document.getElementById('delivery-modal')
+window.onclick=function(event){
+    if (event.target == card){
+        closeDeliveryModal()
+    }
+}
+window.onkeydown=function (event){
+    if (event.key=='Escape'){
+        closeDeliveryModal()
+    }
 }

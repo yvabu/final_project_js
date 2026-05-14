@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech World | ჩვენს შესახებ</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="index.html" class="navbar-logo">
+            Tech<span class="logo-dot"></span><span class="accent">STORE</span>
+        </a>
+        <ul class="navbar-links" id="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="shop.html">Shop</a></li>
+            <li><a href="cart.html">Cart</a></li>
+            <li><a href="about_us.html" class="active">About Us</a></li>
+        </ul>
+
+        <div class="navbar-search">
+          <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+          </svg>
+          <input type="text" id="search-input" placeholder="Search products…" />
+        </div>
+
+        <div class="navbar-actions">
+           <a href="cart.html" class="cart-btn">
+             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+               <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/>
+               <path d="M16 10a4 4 0 0 1-8 0"/>
+             </svg>
+             Cart
+             <span id="cart-count">0</span>
+          </a>
+        </div>
+
+        <label class="menu-burger" id="burger-menu" onclick="burger_menu()">☰</label>
+    </nav>
+
+    <main class="about-container">
+        <section class="about-hero">
+            <h1>ინოვაცია თქვენს ხელთაა</h1>
+            <p>ჩვენ ვქმნით მომავლის ტექნოლოგიურ გამოცდილებას 2026 წლიდან.</p>
+            <div class="about-mission-mini">
+                ჩვენი გუნდი მუშაობს ყოველდღიურად, რათა საუკეთესო პრემიუმ პროდუქტები ხელმისაწვდომი გახდეს თქვენთვის.
+            </div>
+        </section>
+        <div class="about-hero-image">
+              <img src="world_tech.png" alt="Tech World Team">
+        </div>
+
+        <section class="about-stats">
+            <div class="stat-card">
+                <h3>10K+</h3>
+                <p>კმაყოფილი მომხმარებელი</p>
+            </div>
+            <div class="stat-card">
+                <h3>500+</h3>
+                <p>პრემიუმ პროდუქტი</p>
+            </div>
+            <div class="stat-card">
+                <h3>24/7</h3>
+                <p>ონლაინ მხარდაჭერა</p>
+            </div>
+        </section>
+
+        <section class="about-mission">
+            <h2>ჩვენი მისია</h2>
+            <p>
+                Tech World-ის მიზანია, საქართველოში დანერგოს უახლესი ტექნოლოგიური სტანდარტები.
+                ჩვენ გვჯერა, რომ ხარისხიანი ტექნიკა უნდა იყოს ხელმისაწვდომი ყველასთვის,
+                ვინც აფასებს სისწრაფეს, გამძლეობას და თანამედროვე დიზაინს.
+            </p>
+        </section>
+    </main>
+
+    <script src="./script.js"></script>
+</body>
+</html>
