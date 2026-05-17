@@ -4,22 +4,22 @@ const products=[
         name:"Pro Gaming Laptop V2",
         price: "4500₾",
         category:"laptops",
-        main_image: "laptop.webp",
-        image1:'image1.avif',
-        image2:'image2-removebg-preview.png',
-        image3:'image3-removebg-preview.png',
+        main_image: "images/laptop.webp",
+        image1:'images/image1.avif',
+        image2:'images/image2-removebg-preview.png',
+        image3:'images/image3-removebg-preview.png',
         descr:"მაგარი ლეპტოპია",
         garantia:'5 წლიანი ოფიციალური'
     },
     {
         id:2,
         name:"Wireless ANC Headphones",
-        price:"850₾",
+        price:"800₾",
         category: "audio",
-        main_image: "headpones-removebg-preview.png",
-        image1:'headpone1-removebg-preview.png',
-        image2:'headponeimage2-removebg-preview.png',
-        image3:'headponeimage3-removebg-preview.png',
+        main_image: "images/headpones-removebg-preview.png",
+        image1:'images/headpone1-removebg-preview.png',
+        image2:'images/headponeimage2-removebg-preview.png',
+        image3:'images/headponeimage3-removebg-preview.png',
         descr:"მაგარი ყურსასმენია",
         garantia:'3 წლიანი ოფიციალური'
 
@@ -29,10 +29,10 @@ const products=[
         name:"iPhone 15 Pro Max",
         price: "3850₾",
         category: "phones",
-        main_image:"download-removebg-preview.png",
-        image1:'phoneimage1-removebg-preview.png',
-        image2:'phoneimage2-removebg-preview.png',
-        image3:'phoneimages3-removebg-preview.png',
+        main_image:"images/download-removebg-preview.png",
+        image1:'images/phoneimage1-removebg-preview.png',
+        image2:'images/phoneimage2-removebg-preview.png',
+        image3:'images/phoneimages3-removebg-preview.png',
         descr:"მაგარი აიფონია",
         garantia:'1 წლიანი ოფიციალური'
 
@@ -40,19 +40,21 @@ const products=[
     {
         id:4,
         name:"Ultra Wide Monitor",
-        price: "1,500 ₾",
+        price: "1500 ₾",
         category: "accessories",
-        main_image: "istockphoto-2191351159-612x612-removebg-preview.png",
-        image1:'monitorimage1-removebg-preview.png',
-        image2:'monitorimage2-removebg-preview.png',
-        image3:'monitorimage3-removebg-preview.png',
+        main_image: "images/istockphoto-2191351159-612x612-removebg-preview.png",
+        image1:'images/monitorimage1-removebg-preview.png',
+        image2:'images/monitorimage2-removebg-preview.png',
+        image3:'images/monitorimage3-removebg-preview.png',
         descr:"მაგარი მონიტორია",
         garantia:'2,5 წლიანი ოფიციალური'
 
     }
 ]
+const copy_products=structuredClone(products);
 let currentProduct = null;
 let selectedCategory="all"
+let mimdinare_fasi=5000
 function back_to_min(){
     document.getElementById('detail-main-img').src=currentProduct.main_image
 }
@@ -89,13 +91,16 @@ filterButtons.forEach(button =>{
     })
 })
 function filterProducts(){
-    let filtered;
-    if (selectedCategory==="all"){
-        filtered=products
+    let filtered=products;
+
+    if (selectedCategory!=="all"){
+         filtered=products.filter(products => products.category===selectedCategory)
     }
-    else{
-        filtered=products.filter(products => products.category===selectedCategory)
-    }
+
+    filtered=filtered.filter(p =>{
+        productis_fasi=parseFloat(p.price.replace(/[₾,\s]/g, ""))
+        return productis_fasi <= mimdinare_fasi
+    })
     infosGamotana(filtered)
 }
 
@@ -227,17 +232,7 @@ function burger_menu(){
     burgerBtn.style.color = '';
   }
 }
-function toggleAuth() {
-            const login = document.getElementById('login-section');
-            const reg = document.getElementById('register-section');
-            if(login.style.display === 'none') {
-                login.style.display = 'block';
-                reg.style.display = 'none';
-            } else {
-                login.style.display = 'none';
-                reg.style.display = 'block';
-            }
-}
+
 function fasebis_chveneba(){
   document.getElementById('delivery-modal').style.display='flex'
   document.body.overflow='hidden'
@@ -256,3 +251,56 @@ window.onkeydown=function (event){
         closeDeliveryModal()
     }
 }
+// დალაგება ფასების მიხედვით
+const slct=document.getElementById('sort-products')
+if (slct){
+slct.addEventListener('change',function (){
+    const value=this.value
+    if (value == "low"){
+        let selected_low
+        selected_low=copy_products.sort((a, b) => a.price.replace(/[₾,\s]/g, "") -b.price.replace(/[₾,\s]/g, ""))
+        infosGamotana(selected_low)
+    }
+    if (value=='high'){
+        let selected_high
+        selected_high=copy_products.sort((a, b)=> b.price.replace(/[₾,\s]/g, "") -a.price.replace(/[₾,\s]/g, ""))
+        infosGamotana(selected_high)
+    }
+    if (value == "default"){
+        infosGamotana()
+    }
+});
+}
+
+const price_filtr=document.getElementById('price-filter')
+const prc_limit=document.getElementById('price-limit')
+
+if (price_filtr && prc_limit){
+price_filtr.addEventListener('input',(event)=>{
+    mimdinare_fasi=parseFloat(event.target.value)
+    prc_limit.textContent=`${mimdinare_fasi} ₾`
+    filterProducts()
+
+});
+}
+
+function toggleCartModal(){
+ const cartmodal=document.getElementById('cart-modal')
+ const cartoveraly=document.getElementById('cart-overlay')
+
+ if (cartmodal && cartoveraly){
+     cartmodal.classList.toggle('open')
+     cartoveraly.classList.toggle('open')
+ }
+
+}
+document.addEventListener("DOMContentLoaded", () => {
+   const kalatabtn = document.querySelector('.cart-btn');
+
+   if (kalatabtn){
+       kalatabtn.addEventListener('click', (event) => {
+           event.preventDefault();
+           toggleCartModal();
+       });
+   }
+});

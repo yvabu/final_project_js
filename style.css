@@ -664,7 +664,7 @@ h1, h2, h3, h4, h5 {
   width: 100%;
   appearance: none;
   height: 3px;
-  background: linear-gradient(to right, var(--accent) 50%, var(--bg-elevated) 50%);
+  background: linear-gradient(to right, var(--accent) 100%, var(--bg-elevated) 100%);
   border-radius: 99px;
   outline: none;
   cursor: pointer;
@@ -1465,17 +1465,17 @@ footer {
 
 .footer-grid {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr;
+  grid-template-columns: 4fr 2fr 1fr 1fr;
   gap: 48px;
   margin-bottom: 48px;
 }
 
 .footer-brand p {
-  font-size: 14px;
+  font-size: 16px;
   color: var(--text-secondary);
-  line-height: 1.7;
+  line-height: 1.9;
   margin-top: 12px;
-  max-width: 260px;
+  max-width: 450px;
 }
 
 .footer-col h4 {

@@ -81,6 +81,74 @@
             </button>
         </aside>
     </main>
+     <!-- ════════════════════════════════════════
+       FOOTER
+  ════════════════════════════════════════ -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="navbar-logo" style="font-size:18px">
+          <span class="logo-dot"></span>
+          TECH<span class="accent">WORLD</span>
+        </div>
+        <p>შენი ადგილი უახლესი ტექნიკისა და ტექ აქსესუარებისათვის.
+           <br>
+           ხარისხი გარანტირებულია ყოველთვის.</p>
+      </div>
+      <div class="footer-col">
+        <h4>მაღაზია</h4>
+        <ul>
+          <li><a href="shop.html">ყველა პროდუქტი</a></li>
+          <li><a href="shop.html?cat=phones">ტელეფონები</a></li>
+          <li><a href="shop.html?cat=laptops">ლეპტოპები</a></li>
+          <li><a href="shop.html?cat=audio">აუდიო</a></li>
+          <li><a href="shop.html?cat=accessories">აქსესუარები</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>ნავ-ბარი</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="shop.html">Shop</a></li>
+          <li><a href="cart.html">Cart</a></li>
+          <li><a href="about_us.html">About Us</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 TECHWORLD. ყველა უფლება დაცულია.</span>
+      <span>კონფიდენციალურობის პოლიტიკა · მომსახურების პირობები</span>
+    </div>
+  </footer>
+    <!-- ════════════════════════════════════════
+       CART MODAL (slide-out)
+  ════════════════════════════════════════ -->
+  <div class="cart-modal-overlay" id="cart-overlay" onclick="toggleCartModal()"></div>
+
+  <div id="cart-modal">
+    <div class="cart-modal-header">
+      <h3>შენი კალათა</h3>
+      <button class="cart-modal-close" onclick="toggleCartModal()">×</button>
+    </div>
+
+    <div id="cart-items-modal">
+      <div class="cart-empty" style="padding: 40px 20px;">
+        <p style="color: var(--text-secondary);">კალათა ცარიელია</p>
+      </div>
+    </div>
+
+    <div class="cart-modal-footer">
+      <div class="cart-modal-total">
+        <span class="label">ჯამი:</span>
+        <span id="modal-total-price">0.00 ₾</span>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <a href="cart.html" class="btn btn-primary btn-full">კალათაში გადასვლა</a>
+        <button class="btn btn-outline btn-full" onclick="toggleCartModal()">შოპინგის გაგრძელება</button>
+      </div>
+    </div>
+  </div>
 
     <script src="script.js"></script>
 </body>
