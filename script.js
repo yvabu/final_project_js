@@ -35,7 +35,6 @@ const products=[
         image3:'images/phoneimages3-removebg-preview.png',
         descr:"მაგარი აიფონია",
         garantia:'1 წლიანი ოფიციალური'
-
     },
     {
         id:4,
