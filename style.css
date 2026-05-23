@@ -719,6 +719,24 @@ h1, h2, h3, h4, h5 {
   background-position: right 12px center;
   outline: none;
 }
+.sort-select_for_price{
+
+
+  padding: 8px 36px 8px 14px;
+  font-size: 14px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%238888aa' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  outline: none;
+
+}
 
 /* ─── Product Grid & Cards ──────────────────── */
 #product-grid {
@@ -2068,4 +2086,19 @@ footer {
         box-shadow: none; /* პატარა ეკრანზე ზედმეტი ნათება რომ არ "ჭრიდეს" თვალს */
         border-radius: var(--radius-md);
     }
+    #cart-modal {
+    width: 100%; /* მთლიანად დაიკავებს ტელეფონის ეკრანს */
+  }
+
+  .cart-modal-header {
+    padding: 16px; /* ოდნავ პატარა დაშორება, რომ სივრცე დაიზოგოს */
+  }
+
+  .cart-modal-footer {
+    padding: 16px;
+  }
+
+  .cart-modal-header h3 {
+    font-size: 16px; /* ტექსტიც ოდნავ დაპატარავდება */
+  }
 }

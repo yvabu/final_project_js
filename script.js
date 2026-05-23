@@ -50,10 +50,21 @@ const products=[
 
     }
 ]
+const mitanis_fasebi=[
+    {
+        tbilisi: 10,
+        rustavi: 15,
+        qutaisi: 20,
+        zugdidi: 25,
+        batumi:  30,
+        sxva_qalaqebi: 35
+    }
+]
 const copy_products=structuredClone(products);
 let currentProduct = null;
 let selectedCategory="all"
 let mimdinare_fasi=5000
+let mtn_price=10
 function back_to_min(){
     document.getElementById('detail-main-img').src=currentProduct.main_image
 }
@@ -124,7 +135,7 @@ function infosGamotana(filteredProducts=products) {
                 <div>
                   <span class="price-current" style="margin-left: 10px">${product.price}</span>
                 </div>
-                <button class="add-to-cart-btn" onclick="event.stopPropagation(); addToCart(${product.id})">
+                <button class="add-to-cart-btn" onclick="event.stopPropagation(); addToCart(${product.id},'${product.name}','${product.price}','${product.main_image}')">
                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>   
                      </svg>
@@ -302,4 +313,223 @@ document.addEventListener("DOMContentLoaded", () => {
            toggleCartModal();
        });
    }
+});
+
+// წამოვიღოთ კალათა მეხსიერებიდან
+let cart = JSON.parse(localStorage.getItem('tech_store_cart')) || [];
+
+// 1. პროდუქტის კალათაში დამატება
+function addToCart(id, name, price, image){
+    // ფასიდან მოვაშოროთ ლარის ნიშანი და ჰარდ კოდირებული სფეისები
+    let pric = typeof price === 'string' ? parseFloat(price.replace(/[₾,\s]/g, '')) : parseFloat(price);
+
+    const arsebuli_producti = cart.find(item => item.id === id);
+    if (arsebuli_producti){
+        arsebuli_producti.quantity += 1;
+    } else {
+        cart.push({
+            id: id,
+            name: name,
+            price: pric,
+            image: image,
+            quantity: 1
+        });
+    }
+
+    // შევინახოთ მეხსიერებაში
+    localStorage.setItem('tech_store_cart', JSON.stringify(cart));
+
+    // განვაახლოთ ვიზუალი და გამოვაჩინოთ კალათა
+    updateCartUI();
+    toggleCartModal();
+}
+
+// 2. კალათიდან ნივთის სრულად წაშლა
+function removeFromCart(id) {
+    cart = cart.filter(item => item.id !== id);
+    localStorage.setItem('tech_store_cart', JSON.stringify(cart));
+    updateCartUI();
+    renderCartPage();
+}
+
+// 3. რაოდენობის შეცვლა (+ და - ღილაკები)
+function changeQuantity(id, amount) {
+    const item = cart.find(item => item.id === id);
+    if (item) {
+        item.quantity += amount;
+        if (item.quantity <= 0) {
+            cart = cart.filter(i => i.id !== id);
+        }
+    }
+    localStorage.setItem('tech_store_cart', JSON.stringify(cart));
+    updateCartUI();
+    renderCartPage();
+}
+
+// 4. კალათის ვიზუალის ეკრანზე დახატვა
+function updateCartUI() {
+    const cartItemsModal = document.getElementById('cart-items-modal');
+    const cartCountBadge = document.getElementById('cart-count');
+    const modalTotalPrice = document.getElementById('modal-total-price');
+
+    if (!cartItemsModal) return;
+
+    if (cart.length === 0) {
+        cartItemsModal.innerHTML = `
+            <div class="cart-empty" style="text-align: center; padding: 40px 20px;">
+                <p style="color: var(--text-secondary);">კალათა ცარიელია</p>
+            </div>
+        `;
+        if (cartCountBadge) cartCountBadge.textContent = '0';
+        if (modalTotalPrice) modalTotalPrice.textContent = '0.00 ₾';
+        return;
+    }
+
+    let itemsHTML = '';
+    let total = 0;
+    let totalItemsCount = 0;
+
+    cart.forEach(item => {
+        total += item.price * item.quantity;
+        totalItemsCount += item.quantity;
+
+        itemsHTML += `
+            <div class="cart-item" style="display: flex; gap: 12px; align-items: center; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--border);">
+                <img src="${item.image}" alt="${item.name}" style="width: 50px; height: 50px; object-fit: cover; border-radius: var(--radius-sm);">
+                <div style="flex: 1;">
+                    <h4 style="font-size: 14px; margin-bottom: 4px; color: var(--text-primary); max-width: 180px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${item.name}</h4>
+                    <span style="color: var(--accent); font-weight: 600; font-size: 13px;">${item.price.toFixed(2)} ₾</span>
+                    <div style="display: flex; align-items: center; gap: 8px; margin-top: 6px;">
+                        <button onclick="changeQuantity(${item.id}, -1)" style="background: var(--bg-elevated); color: white; border: none; padding: 2px 8px; cursor: pointer; border-radius: 4px;">-</button>
+                        <span style="font-size: 13px;">${item.quantity}</span>
+                        <button onclick="changeQuantity(${item.id}, 1)" style="background: var(--bg-elevated); color: white; border: none; padding: 2px 8px; cursor: pointer; border-radius: 4px;">+</button>
+                    </div>
+                </div>
+                <button onclick="removeFromCart(${item.id})" style="background: transparent; color: var(--red); border: none; cursor: pointer; font-size: 18px; margin-left: auto;">×</button>
+            </div>
+        `;
+    });
+
+    cartItemsModal.innerHTML = itemsHTML;
+    if (cartCountBadge) cartCountBadge.textContent = totalItemsCount;
+    if (modalTotalPrice) modalTotalPrice.textContent = total.toFixed(2) + ' ₾';
+}
+
+// გვერდის ჩატვირთვისას ავტომატურად განახლდეს კალათის UI
+document.addEventListener('DOMContentLoaded', () => {
+    updateCartUI();
+});
+
+// ფუნქცია დეტალების გვერდიდან კალათაში დასამატებლად
+function addToCartFromDetails() {
+    if (currentProduct) {
+        // ვიძახებთ შენს უკვე მზა addToCart ფუნქციას და ვატანთ მიმდინარე ნივთის მონაცემებს
+        addToCart(
+            currentProduct.id,
+            currentProduct.name,
+            currentProduct.price,
+            currentProduct.main_image
+        );
+    } else {
+        console.error("პროდუქტის მონაცემები ვერ მოიძებნა!");
+    }
+}
+// ფუნქცია სპეციალურად cart.html-ის დიდი ცხრილის შესავსებად
+function renderCartPage() {
+    const cartItemsContainer = document.getElementById('cart-items');
+    const subtotalPrice = document.getElementById('subtotal-price');
+    const totalPrice = document.getElementById('total-price');
+    const totalItems = document.getElementById('cart-total-items');
+
+    // თუ ამ გვერდზე (მაგალითად მთავარზე ხარ) ეს ელემენტი არ არსებობს, ფუნქცია გაჩერდეს
+    if (!cartItemsContainer) return;
+
+    // თუ კალათა ცარიელია
+    if (cart.length === 0) {
+        cartItemsContainer.innerHTML = `
+            <div style="text-align: center; padding: 50px 0; color: var(--text-secondary);">
+                <h2>შენი კალათა ცარიელია</h2>
+                <a href="shop.html" style="color: var(--accent); text-decoration: underline; display: inline-block; margin-top: 15px;">მაღაზიაში დაბრუნება</a>
+            </div>
+        `;
+
+        subtotalPrice.textContent = '0 ₾';
+        totalPrice.textContent = '0 ₾';
+        totalItems.textContent = '0 ნივთი';
+        return;
+    }
+
+    let tableHTML = '';
+    let subtotal = 0;
+    let itemCount = 0;
+    let totalprice=0
+    cart.forEach(item => {
+        // თითოეული პროდუქტის საერთო ჯამი (ფასი გამრავლებული რაოდენობაზე)
+        let itemTotal = item.price * item.quantity;
+        subtotal += itemTotal;
+        itemCount += item.quantity;
+        totalprice=subtotal + mtn_price
+
+        tableHTML += `
+            <div class="cart-row" style="display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 0.5fr; align-items: center; padding: 15px 0; border-bottom: 1px solid var(--border);">
+                
+                <div style="display: flex; align-items: center; gap: 15px;">
+                    <img src="${item.image}" alt="${item.name}" style="width: 60px; height: 60px; object-fit: cover; border-radius: var(--radius-sm);">
+                    <span style="font-weight: 500; color: var(--text-primary);">${item.name}</span>
+                </div>
+
+                <div style="color: var(--text-primary);">${item.price.toFixed(2)} ₾</div>
+
+                <div>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <button onclick="changeQuantity(${item.id}, -1)" style="background: var(--bg-elevated); color: white; border: none; padding: 4px 10px; cursor: pointer; border-radius: 4px;">-</button>
+                        <span style="font-weight: 600; color: var(--text-primary);">${item.quantity}</span>
+                        <button onclick="changeQuantity(${item.id}, 1)" style="background: var(--bg-elevated); color: white; border: none; padding: 4px 10px; cursor: pointer; border-radius: 4px;">+</button>
+                    </div>
+                </div>
+
+                <div style="color: var(--accent); font-weight: 600;">${itemTotal.toFixed(2)} ₾</div>
+
+                <div>
+                    <button onclick="removeFromCart(${item.id})" style="background: transparent; color: #ff4a4a; border: none; font-size: 20px; cursor: pointer;">×</button>
+                </div>
+
+            </div>
+        `;
+    });
+
+    cartItemsContainer.innerHTML = tableHTML;
+    subtotalPrice.textContent = subtotal.toFixed(2) + ' ₾';
+    totalPrice.textContent =totalprice.toFixed(2)  + ' ₾'
+    totalItems.textContent = `${itemCount} ნივთი`;
+}
+document.addEventListener('DOMContentLoaded', () => {
+    renderCartPage();
+     const mitanis_fasi=document.getElementById('sort-products_price')
+
+    if (mitanis_fasi){
+        mitanis_fasi.addEventListener('change', function (){
+            value=this.value
+            if (value=='tbilisi'){
+                mtn_price= mitanis_fasebi[0].tbilisi
+            }
+            if (value=='rustavi'){
+                mtn_price=mitanis_fasebi[0].rustavi
+            }
+            if (value=='qutaisi'){
+                mtn_price=mitanis_fasebi[0].qutaisi
+            }
+            if (value=='zugdidi'){
+                mtn_price=mitanis_fasebi[0].zugdidi
+            }
+            if (value=='batumi'){
+                mtn_price=mitanis_fasebi[0].batumi
+            }
+            if (value=='sxvaqal'){
+                mtn_price=mitanis_fasebi[0].sxva_qalaqebi
+            }
+
+            renderCartPage();
+        })
+    }
 });
