@@ -60,11 +60,12 @@ const mitanis_fasebi=[
         sxva_qalaqebi: 35
     }
 ]
-const copy_products=structuredClone(products);
 let currentProduct = null;
 let selectedCategory="all"
 let mimdinare_fasi=5000
 let mtn_price=10
+const promokodi='techstore123'
+let discount=0
 function back_to_min(){
     document.getElementById('detail-main-img').src=currentProduct.main_image
 }
@@ -100,6 +101,13 @@ filterButtons.forEach(button =>{
         filterProducts()
     })
 })
+const slct=document.getElementById('sort-products')
+if (slct){
+    slct.addEventListener('change',function (){
+        filterProducts()
+    })
+}
+
 function filterProducts(){
     let filtered=products;
 
@@ -111,6 +119,19 @@ function filterProducts(){
         productis_fasi=parseFloat(p.price.replace(/[₾,\s]/g, ""))
         return productis_fasi <= mimdinare_fasi
     })
+
+     const value=slct.value
+    if (value === "low") {
+            filtered.sort((a, b) => {
+                return parseFloat(a.price.replace(/[₾,\s]/g, "")) - parseFloat(b.price.replace(/[₾,\s]/g, ""));
+            });
+        } else if (value === "high") {
+            filtered.sort((a, b) => {
+                return parseFloat(b.price.replace(/[₾,\s]/g, "")) - parseFloat(a.price.replace(/[₾,\s]/g, ""));
+            });
+    }
+
+
     infosGamotana(filtered)
 }
 
@@ -262,25 +283,7 @@ window.onkeydown=function (event){
     }
 }
 // დალაგება ფასების მიხედვით
-const slct=document.getElementById('sort-products')
-if (slct){
-slct.addEventListener('change',function (){
-    const value=this.value
-    if (value == "low"){
-        let selected_low
-        selected_low=copy_products.sort((a, b) => a.price.replace(/[₾,\s]/g, "") -b.price.replace(/[₾,\s]/g, ""))
-        infosGamotana(selected_low)
-    }
-    if (value=='high'){
-        let selected_high
-        selected_high=copy_products.sort((a, b)=> b.price.replace(/[₾,\s]/g, "") -a.price.replace(/[₾,\s]/g, ""))
-        infosGamotana(selected_high)
-    }
-    if (value == "default"){
-        infosGamotana()
-    }
-});
-}
+
 
 const price_filtr=document.getElementById('price-filter')
 const prc_limit=document.getElementById('price-limit')
@@ -434,11 +437,12 @@ function addToCartFromDetails() {
         console.error("პროდუქტის მონაცემები ვერ მოიძებნა!");
     }
 }
+
 // ფუნქცია სპეციალურად cart.html-ის დიდი ცხრილის შესავსებად
 function renderCartPage() {
     const cartItemsContainer = document.getElementById('cart-items');
-    const subtotalPrice = document.getElementById('subtotal-price');
     const totalPrice = document.getElementById('total-price');
+    const subtotalPrice = document.getElementById('subtotal-price');
     const totalItems = document.getElementById('cart-total-items');
 
     // თუ ამ გვერდზე (მაგალითად მთავარზე ხარ) ეს ელემენტი არ არსებობს, ფუნქცია გაჩერდეს
@@ -463,12 +467,16 @@ function renderCartPage() {
     let subtotal = 0;
     let itemCount = 0;
     let totalprice=0
+
     cart.forEach(item => {
         // თითოეული პროდუქტის საერთო ჯამი (ფასი გამრავლებული რაოდენობაზე)
         let itemTotal = item.price * item.quantity;
         subtotal += itemTotal;
         itemCount += item.quantity;
-        totalprice=subtotal + mtn_price
+        let discountAmount=subtotal *discount;
+        let finalsubtotal=subtotal - discountAmount
+        totalprice=finalsubtotal + mtn_price
+
 
         tableHTML += `
             <div class="cart-row" style="display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 0.5fr; align-items: center; padding: 15px 0; border-bottom: 1px solid var(--border);">
@@ -533,3 +541,23 @@ document.addEventListener('DOMContentLoaded', () => {
         })
     }
 });
+function prm_kodi(){
+    let inpt=document.getElementById('promokod').value
+    if (inpt=== promokodi){
+        if (discount>0){
+            alert("პრომოკოდი უკვე აქტიურია!")
+            return
+        }
+        alert("პრომო კოდი სწორია,თქვენ სარგებლობთ 40%-იანი ფასდაკლებით")
+        discount=0.4
+
+    }
+    else {
+        alert("პრომოკოდი არასწორია,ვერ ისარგებლებთ ფასდაკლებით")
+        discount=0
+    }
+    renderCartPage();
+
+
+
+}
