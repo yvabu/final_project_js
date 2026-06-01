@@ -1362,6 +1362,28 @@ h1, h2, h3, h4, h5 {
   color: var(--accent);
   letter-spacing: -0.04em;
 }
+#prod-price {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--accent);
+  letter-spacing: -0.04em;
+}
+#miwod-fasi {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--accent);
+  letter-spacing: -0.04em;
+}
+#daklebuli-procenti {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--accent);
+  letter-spacing: -0.04em;
+}
+
 
 .coupon-input {
   display: flex;

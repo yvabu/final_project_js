@@ -66,6 +66,7 @@ let mimdinare_fasi=5000
 let mtn_price=10
 const promokodi='techstore123'
 let discount=0
+let selectedQuantity=1
 function back_to_min(){
     document.getElementById('detail-main-img').src=currentProduct.main_image
 }
@@ -425,16 +426,52 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // ფუნქცია დეტალების გვერდიდან კალათაში დასამატებლად
 function addToCartFromDetails() {
-    if (currentProduct) {
-        // ვიძახებთ შენს უკვე მზა addToCart ფუნქციას და ვატანთ მიმდინარე ნივთის მონაცემებს
-        addToCart(
-            currentProduct.id,
-            currentProduct.name,
-            currentProduct.price,
-            currentProduct.main_image
-        );
-    } else {
+
+    if (!currentProduct) {
         console.error("პროდუქტის მონაცემები ვერ მოიძებნა!");
+        return;
+    }
+
+    let pric = parseFloat(
+        currentProduct.price.replace(/[₾,\s]/g, '')
+    );
+
+    const arsebuli_producti = cart.find(
+        item => item.id === currentProduct.id
+    );
+
+    if (arsebuli_producti) {
+
+        arsebuli_producti.quantity += selectedQuantity;
+
+    } else {
+
+        cart.push({
+            id: currentProduct.id,
+            name: currentProduct.name,
+            price: pric,
+            image: currentProduct.main_image,
+            quantity: selectedQuantity
+        });
+
+    }
+
+    localStorage.setItem(
+        'tech_store_cart',
+        JSON.stringify(cart)
+    );
+
+    updateCartUI();
+
+    toggleCartModal();
+
+    // სურვილისამებრ რაოდენობის განულება
+    selectedQuantity = 1;
+
+    const qtyDisplay = document.getElementById('product-qty');
+
+    if (qtyDisplay) {
+        qtyDisplay.textContent = '1';
     }
 }
 
@@ -444,6 +481,9 @@ function renderCartPage() {
     const totalPrice = document.getElementById('total-price');
     const subtotalPrice = document.getElementById('subtotal-price');
     const totalItems = document.getElementById('cart-total-items');
+    const prdprice=document.getElementById("prod-price")
+    const miwfasi=document.getElementById("miwod-fasi")
+    const daklebuli_procenti=document.getElementById("daklebuli-procenti")
 
     // თუ ამ გვერდზე (მაგალითად მთავარზე ხარ) ეს ელემენტი არ არსებობს, ფუნქცია გაჩერდეს
     if (!cartItemsContainer) return;
@@ -460,6 +500,9 @@ function renderCartPage() {
         subtotalPrice.textContent = '0 ₾';
         totalPrice.textContent = '0 ₾';
         totalItems.textContent = '0 ნივთი';
+        prdprice.textContent='0 ₾'
+        miwfasi.textContent='0 ₾'
+        daklebuli_procenti.textContent='0 ₾'
         return;
     }
 
@@ -467,6 +510,9 @@ function renderCartPage() {
     let subtotal = 0;
     let itemCount = 0;
     let totalprice=0
+    let prfasi=0
+    let mw_fasi=0
+    let discraod=0
 
     cart.forEach(item => {
         // თითოეული პროდუქტის საერთო ჯამი (ფასი გამრავლებული რაოდენობაზე)
@@ -476,6 +522,9 @@ function renderCartPage() {
         let discountAmount=subtotal *discount;
         let finalsubtotal=subtotal - discountAmount
         totalprice=finalsubtotal + mtn_price
+        prfasi =itemTotal
+        mw_fasi=mtn_price
+        discraod=discountAmount
 
 
         tableHTML += `
@@ -507,9 +556,15 @@ function renderCartPage() {
     });
 
     cartItemsContainer.innerHTML = tableHTML;
+
     subtotalPrice.textContent = subtotal.toFixed(2) + ' ₾';
     totalPrice.textContent =totalprice.toFixed(2)  + ' ₾'
     totalItems.textContent = `${itemCount} ნივთი`;
+    prdprice.textContent=prfasi.toFixed(2) + '₾'
+    miwfasi.textContent=mw_fasi.toFixed(2) + '₾'
+    daklebuli_procenti.textContent=(discount * 100) +'%'
+
+
 }
 document.addEventListener('DOMContentLoaded', () => {
     renderCartPage();
@@ -557,7 +612,40 @@ function prm_kodi(){
         discount=0
     }
     renderCartPage();
+}
+document.addEventListener('DOMContentLoaded', () => {
 
+    const minusBtn = document.getElementById('qty-minus');
+    const plusBtn = document.getElementById('qty-plus');
+    const qtyDisplay = document.getElementById('product-qty');
 
+    if (minusBtn && plusBtn && qtyDisplay) {
 
+        minusBtn.addEventListener('click', () => {
+            if (selectedQuantity > 1) {
+                selectedQuantity--;
+                qtyDisplay.textContent = selectedQuantity;
+            }
+        });
+
+        plusBtn.addEventListener('click', () => {
+            selectedQuantity++;
+            qtyDisplay.textContent = selectedQuantity;
+        });
+
+    }
+});
+const searchinput=document.getElementById("search-input")
+if (searchinput){
+    searchinput.addEventListener("input",function (){
+        searchvalue=this.value.toLowerCase().trim()
+        filteredprdcts=products.filter(products =>{
+            return(
+                products.name.toLowerCase().includes(searchvalue)||
+                products.category.toLowerCase().includes(searchvalue)||
+                products.descr.toLowerCase().includes(searchvalue)
+            )
+        });
+        infosGamotana(filteredprdcts);
+    })
 }
