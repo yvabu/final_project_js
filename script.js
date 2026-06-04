@@ -649,3 +649,51 @@ if (searchinput){
         infosGamotana(filteredprdcts);
     })
 }
+
+// გადახდის ღილაკის გაცოცხლება და ლოგიკა
+document.addEventListener("DOMContentLoaded", () => {
+    const checkoutBtn = document.getElementById('checkout-btn');
+    const successModal = document.getElementById('success-modal');
+    const closeModalBtn = document.getElementById('close-modal-btn');
+
+    if (checkoutBtn) {
+        checkoutBtn.addEventListener('click', () => {
+            // ვამოწმებთ შენს რეალურ მასივს 'cart', რომელიც script.js-ის თავში გაქვს შექმნილი
+            if (cart && cart.length > 0) {
+                // 1. გამოვაჩინოთ შენი დიზაინის მოდალური ფანჯარა
+                successModal.classList.add('active');
+
+                // 2. ვასუფთავებთ კალათის მასივს და ლოკალურ მეხსიერებას
+                cart = [];
+                localStorage.setItem('tech_store_cart', JSON.stringify(cart));
+
+                // 3. განვაახლებთ დიდ კალათას ეკრანზე (გამოჩნდება "შენი კალათა ცარიელია")
+                renderCartPage();
+
+                // 4. განვაახლოთ პატარა კალათის UI-ც (ზედა იკონკის ციფრი)
+                if (typeof updateCartUI === 'function') {
+                    updateCartUI();
+                }
+            } else {
+                // თუ კალათა ცარიელია, საერთოდ არაფერი არ მოხდება, როგორც ითხოვდი
+                console.log("ღილაკი დაბლოკილია: კალათა ცარიელია.");
+            }
+        });
+    }
+
+    // მოდალური ფანჯრის დახურვა ბათონზე დაჭერისას
+    if (closeModalBtn) {
+        closeModalBtn.addEventListener('click', () => {
+            successModal.classList.remove('active');
+        });
+    }
+
+    // მოდალური ფანჯრის დახურვა გარე შავ ფონზე დაჭერისას
+    if (successModal) {
+        successModal.addEventListener('click', (e) => {
+            if (e.target === successModal) {
+                successModal.classList.remove('active');
+            }
+        });
+    }
+});

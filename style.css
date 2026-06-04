@@ -1404,6 +1404,87 @@ h1, h2, h3, h4, h5 {
 .coupon-input input::placeholder { color: var(--text-muted); }
 .coupon-input input:focus { border-color: var(--accent); }
 
+/*  გადახდაზე გადასვლის ქარდი*/
+
+/* მოდალის მთლიანი ფონი (ეკრანის დაბნელება) */
+.modal-overlay {
+    display: none; /* საწყის ეტაპზე დამალულია */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.85); /* მუქი გამჭვირვალე ფონი */
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+}
+
+/* მოდალური ბარათი Tech Store-ის სტილში */
+.modal-card {
+    background-color: #0b0f19; /* შენი საიტის მუქი ფონი */
+    border: 2px solid #00f0ff; /* ნეონისფერი ციანი ჩარჩო */
+    border-radius: 16px;
+    padding: 40px 30px;
+    text-align: center;
+    box-shadow: 0 0 25px rgba(0, 240, 255, 0.25);
+    max-width: 420px;
+    width: 90%;
+    animation: fadeIn 0.3s ease-out;
+}
+
+/* ანიმაცია ეფექტური გამოჩენისთვის */
+@keyframes fadeIn {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.success-icon {
+    font-size: 55px;
+    color: #00f0ff;
+    margin-bottom: 20px;
+    text-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
+}
+
+.modal-card h2 {
+    color: #00f0ff;
+    font-family: 'BPG Banner ExtraSquare', sans-serif, Arial; /* ან შენი საიტის ფონტი */
+    font-size: 22px;
+    margin-bottom: 12px;
+}
+
+.modal-card p {
+    color: #a0aec0;
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 25px;
+}
+
+/* დახურვის ნეონის ღილაკი */
+#close-modal-btn {
+    background-color: #00f0ff;
+    color: #000000;
+    border: none;
+    padding: 12px 35px;
+    font-size: 15px;
+    font-weight: bold;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px rgba(0, 240, 255, 0.3);
+}
+
+#close-modal-btn:hover {
+    background-color: #00b8cc;
+    box-shadow: 0 0 20px rgba(0, 240, 255, 0.6);
+    transform: translateY(-2px);
+}
+
+/* კლასი, რომელსაც JS-ით დავამატებთ აქტივაციისთვის */
+.modal-overlay.active {
+    display: flex;
+}
+
 /* ─── ═══════════════════════════════════════
        CART MODAL (slide-out)
    ═══════════════════════════════════════ ── */
