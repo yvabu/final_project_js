@@ -502,7 +502,7 @@ function renderCartPage() {
         totalItems.textContent = '0 ნივთი';
         prdprice.textContent='0 ₾'
         miwfasi.textContent='0 ₾'
-        daklebuli_procenti.textContent='0 ₾'
+        daklebuli_procenti.textContent='0%'
         return;
     }
 
